@@ -376,4 +376,8 @@ func hahlcom() {
 		fmt.Println("Der Aufbau der Seite unter https://www.hahlcom.de/index.php/shop hat sich verändert. KÖNNTE DIES DER TAG SEIN?!?!?")
 	}
 
+	fmt.Println()
+	fmt.Println("Vielen Dank für ihre Aufmerksamkeit.")
+	fmt.Println("Auf Wiedersehen.")
+	time.Sleep(20 * time.Second)
 }
