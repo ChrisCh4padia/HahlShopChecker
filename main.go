@@ -3,322 +3,36 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"os"
-	"os/user"
 	"strconv"
 	"strings"
 	"time"
+
+	"fyne.io/fyne"
+	"fyne.io/fyne/app"
+	"fyne.io/fyne/widget"
 )
 
-var daytime = "Guten Morgen"
-var pause = "               "
-var beforpause = pause
-var neofetch bool = false
+var label2 widget.Label
+var label3 widget.Label
+var label4 widget.Label
+var labelhour widget.Label
+var labelmin widget.Label
+var labelsek widget.Label
+var labelnanosek widget.Label
 
 func main() {
 
-	intro()
-}
-
-func intro() {
-
-	fmt.Println("~~~~~~~~~~~~~~~~DER GROßE HAHLCOM ONLINESHOPCHECKER~~~~~~~~~~~~~~~~")
-	fmt.Println()
-	for i := 0; i < 13; i++ {
-		fmt.Printf(" # # #")
-		time.Sleep(150 * time.Millisecond)
-	}
-	println(" ")
-	sideway()
-
-	for i := 0; i < 13; i++ {
-		fmt.Printf(" # # #")
-
-		time.Sleep(150 * time.Millisecond)
-	}
-	fmt.Println(" ")
-	fmt.Println()
-	hahlcom()
-}
-
-func sideway() {
-
-	today := time.Now().Weekday()
-	dateday := time.Now().Day()
-	datemonth := time.Now().Month()
-	dateyear := time.Now().Local().Year()
-
-	hour := time.Now().Hour()
-	Minute := time.Now().UTC().Minute()
-
-	/*
-		datedaychar := 0
-		datemonthchar := 0
-		dateyearchar := 0
-			switch {
-			case time.Now().Weekday() >= 10:
-				todaychar = 1
-			}
-	*/
-
-	dateday2string := strconv.Itoa(dateday)
-	dateyear2string := strconv.Itoa(dateyear)
-	todaylength := len(dateday2string)
-	monthlength := len(datemonth.String())
-	daylength := len(today.String())
-	yearlength := len(dateyear2string)
-	distance := daylength + yearlength + monthlength + todaylength
-
-	switch {
-	case distance == 9:
-		pause = "                                                           "
-	case distance == 10:
-		pause = "                                                          "
-	case distance == 11:
-		pause = "                                                         "
-	case distance == 12:
-		pause = "                                                        "
-	case distance == 13:
-		pause = "                                                       "
-	case distance == 14:
-		pause = "                                                      "
-	case distance == 15:
-		pause = "                                                     "
-	case distance == 16:
-		pause = "                                                    "
-	case distance == 17:
-		pause = "                                                   "
-	case distance == 18:
-		pause = "                                                  "
-	case distance == 19:
-		pause = "                                                 "
-	case distance == 20:
-		pause = "                                                "
-	case distance == 21:
-		pause = "                                               "
-	case distance == 22:
-		pause = "                                              "
-	case distance == 23:
-		pause = "                                             "
-	case distance == 24:
-		pause = "                                            "
-	case distance == 25:
-		pause = "                                           "
-	case distance == 26:
-		pause = "                                          "
-	case distance == 27:
-		pause = "                                         "
-	case distance == 28:
-		pause = "                                        "
-	case distance == 29:
-		pause = "                                       "
-	case distance == 30:
-		pause = "                                      "
-	case distance == 31:
-		pause = "                                     "
-
-	}
-
-	hour2string := strconv.Itoa(hour)
-	minute2string := strconv.Itoa(Minute)
-	hourlength := len(hour2string)
-	minutelength := len(minute2string)
-
-	//minutelength = 1
-
-	timelength := hourlength + minutelength
-
-	timepause := " "
-	switch {
-	case timelength == 2:
-		timepause = "                                                    "
-	case timelength == 3:
-		timepause = "                                                   "
-	case timelength == 4:
-		timepause = "                                                  "
-
-	}
-	//fmt.Println(timelength)
-
-	fmt.Println(" #                                                                           #")
-	fmt.Println(" # ", today, dateday, datemonth, dateyear, pause, "#")
-	fmt.Println(" #  Current Time:", hour, ":", Minute, timepause, "#")
-
-	for i := 0; i < 2; i++ {
-		fmt.Printf(" # ")
-		fmt.Printf("                                                                          #")
-		fmt.Println(" ")
-		time.Sleep(150 * time.Millisecond)
-	}
-	user, err := user.Current()
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
-
-	username := user.Username
-
-	länge := len(username)
-
-	t := time.Now()
-	switch {
-	case t.Hour() < 10:
-		daytime = "Guten Morgen,"
-		pause = "                        "
-		switch {
-		case länge == 9:
-			pause = "                       "
-		case länge == 10:
-			pause = "                      "
-		case länge == 11:
-			pause = "                     "
-		case länge == 12:
-			pause = "                    "
-		case länge == 13:
-			pause = "                   "
-		case länge == 14:
-			pause = "                  "
-		case länge == 15:
-			pause = "                 "
-		case länge == 16:
-			pause = "                "
-		case länge == 17:
-			pause = "               "
-		case länge == 18:
-			pause = "              "
-		case länge == 19:
-			pause = "             "
-		case länge == 20:
-			pause = "            "
-		case länge == 21:
-			pause = "           "
-		case länge == 22:
-			pause = "          "
-		case länge == 23:
-			pause = "         "
-		case länge == 24:
-			pause = "        "
-		case länge == 25:
-			pause = "       "
-		case länge == 26:
-			pause = "      "
-		case länge == 27:
-			pause = "     "
-		case länge == 28:
-			pause = "    "
-		case länge == 29:
-			pause = "   "
-		case länge == 30:
-			pause = "  "
-		case länge == 31:
-			pause = " "
-
-		}
-	case t.Hour() > 16:
-		daytime = "Guten Abend,"
-		pause = "                        "
-		switch {
-		case länge == 9:
-			pause = "                        "
-		case länge == 10:
-			pause = "                       "
-		case länge == 11:
-			pause = "                      "
-		case länge == 12:
-			pause = "                     "
-		case länge == 13:
-			pause = "                    "
-		case länge == 14:
-			pause = "                   "
-		case länge == 15:
-			pause = "                  "
-		case länge == 16:
-			pause = "                 "
-		case länge == 17:
-			pause = "                "
-		case länge == 18:
-			pause = "               "
-		case länge == 19:
-			pause = "              "
-		case länge == 20:
-			pause = "             "
-		case länge == 21:
-			pause = "            "
-		case länge == 22:
-			pause = "           "
-		case länge == 23:
-			pause = "          "
-		case länge == 24:
-			pause = "         "
-		case länge == 25:
-			pause = "        "
-		case länge == 26:
-			pause = "       "
-		case länge == 27:
-			pause = "      "
-		case länge == 28:
-			pause = "     "
-		case länge == 29:
-			pause = "    "
-		case länge == 30:
-			pause = "   "
-		case länge == 31:
-			pause = "  "
-		case länge == 32:
-			pause = " "
-		}
-	default:
-		daytime = "Guten Tag,"
-		pause = "                          "
-		switch {
-		case länge == 8:
-			pause = "                           "
-		case länge == 9:
-			pause = "                          "
-		case länge == 10:
-			pause = "                         "
-		case länge == 11:
-			pause = "                        "
-		case länge == 12:
-			pause = "                       "
-		case länge == 13:
-			pause = "                      "
-		case länge == 14:
-			pause = "                     "
-		case länge == 15:
-			pause = "                    "
-		case länge == 16:
-			pause = "                   "
-		case länge == 17:
-			pause = "                  "
-		case länge == 18:
-			pause = "                 "
-		case länge == 19:
-			pause = "                "
-		case länge == 20:
-			pause = "               "
-		case länge == 21:
-			pause = "              "
-		case länge == 22:
-			pause = "             "
-
-		}
-	}
-
-	fmt.Println(" #", "                         ", daytime, username, pause, "#")
-	for i := 0; i < 4; i++ {
-		fmt.Printf(" # ")
-		fmt.Printf("                                                                          #")
-		fmt.Println(" ")
-		time.Sleep(150 * time.Millisecond)
-	}
-
-}
-
-func exit() {
-
-	os.Exit(1)
+	app := app.New()
+	w := app.NewWindow("DER GROßE HAHLCOM ONLINESHOPCHECKER    ")
+	label1 := widget.NewLabel("Diese Applikation checked, wie lange der Hahlcom.de Shop schon im Rohbau ist.")
+	label2.SetText("")
+	btn01 := widget.NewButton("KALKULIEREN!", func() { hahlcom() })
+	contenttab1 := widget.NewVBox(&label2, label1, &label2, btn01, &label2, &label3, &label4, &labelhour, &labelmin, &labelsek, &labelnanosek, &label2)
+	w.SetContent(contenttab1)
+	w.Resize(fyne.Size{600, 350})
+	w.SetFixedSize(true)
+	w.ShowAndRun()
 }
 
 func hahlcom() {
@@ -365,19 +79,25 @@ func hahlcom() {
 
 	days := (int(diff.Hours() / 24)) // number of days
 
-	if compare2 == true {
-		fmt.Println("Die Seite kann nicht gefunden werden. Bitte suchen sie https://hahlcom.eu/ auf.")
+	if compare2 {
+
+		label3.SetText("Die Seite kann nicht gefunden werden. Bitte suchen sie https://hahlcom.eu/ auf.")
 	}
 
-	if compare == true {
-
-		fmt.Println("Der Hahlcom.de Shop ist seit der Anmeldung der Domain (17.01.2017) in Arbeit. Das sind", days, "Tage.", "\n", "Das sind:", "\n", hours, "Stunden.", "\n", minutes, "Minuten.", "\n", seconds, "Sekunden.", "\n", nanoseconds, "Nanosekunden.")
+	if compare {
+		daysstr := strconv.Itoa(days)
+		hoursstr := fmt.Sprintf("%f", hours)
+		minstr := fmt.Sprintf("%f", minutes)
+		secstr := fmt.Sprintf("%f", seconds)
+		nanosstr := strconv.Itoa(int(nanoseconds))
+		label3.SetText("Der Hahlcom.de Shop ist seit der Anmeldung der Domain (17.01.2017) in Arbeit. ")
+		label4.SetText("Das sind " + daysstr + " Tage.")
+		labelhour.SetText("Das sind: " + hoursstr + " Stunden.")
+		labelmin.SetText("Das sind: " + minstr + " Minuten.")
+		labelsek.SetText("Das sind: " + secstr + " Sekunden.")
+		labelnanosek.SetText("Das sind: " + nanosstr + " Nanosekunden.")
 	} else {
-		fmt.Println("Der Aufbau der Seite unter https://www.hahlcom.de/index.php/shop hat sich verändert. KÖNNTE DIES DER TAG SEIN?!?!?")
+		label3.SetText("Der Aufbau der Seite unter https://www.hahlcom.de/index.php/shop hat sich verändert. KÖNNTE DIES DER TAG SEIN?!?!?")
 	}
 
-	fmt.Println()
-	fmt.Println("Vielen Dank für ihre Aufmerksamkeit.")
-	fmt.Println("Auf Wiedersehen.")
-	time.Sleep(20 * time.Second)
 }
